@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi import Body
 from fastapi import Query
+from fastapi import Path
 
 app = FastAPI()
 
@@ -20,8 +21,8 @@ def home():
     return {"Hello": "World"}
 
 
-@app.post('/person/new')
 # request body
+@app.post('/person/new')
 def create_person(person: Person = Body(...)):
     return person
 
@@ -33,3 +34,14 @@ def show_person(
     age: int = Query(...)
 ):
     return {name: age}
+
+
+# Path params validation
+@app.get('/person/details/{person_id}')
+def show_person(person_id: int = Path(
+    ...,
+    gt=0,
+    title='Person Id',
+    description='Id of the user to retrieve, should be above 1'
+)):
+    return {person_id: "It exists"}

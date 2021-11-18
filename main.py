@@ -3,6 +3,7 @@ from enum import Enum
 
 from pydantic import BaseModel
 from pydantic import Field
+from pydantic import EmailStr
 
 from fastapi import FastAPI
 from fastapi import Body
@@ -30,6 +31,7 @@ class Person(BaseModel):
     first_name: str = Field(..., min_length=5, max_length=50)
     last_name: str = Field(..., min_length=5, max_length=50)
     age: int = Field(..., gt=0, le=100)
+    email: EmailStr = Field(...)
     hair_color: Optional[HairColor] = Field(default=None)
     is_married: Optional[bool] = Field(default=None)
 

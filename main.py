@@ -60,7 +60,7 @@ class PersonResponse(BaseModel):
 
 @app.get('/')
 def home():
-    return {"Hello": "World"}
+    return {"Hello": "World", "description": "You're not supposed to be here, but since you are go ahead and add /docs to this route to see the API interactive documentation"}
 
 
 # request body

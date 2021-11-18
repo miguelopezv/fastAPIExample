@@ -61,8 +61,9 @@ def create_person(person: Person = Body(...)):
 # Query params validation
 @app.get('/person/details')
 def show_person(
-    name: Optional[str] = Query(None, min_length=1, max_length=50),
-    age: int = Query(...)
+    name: Optional[str] = Query(
+        None, min_length=1, max_length=50, example='Miguel'),
+    age: int = Query(..., example=35)
 ):
     return {name: age}
 
@@ -73,7 +74,8 @@ def show_person(person_id: int = Path(
     ...,
     gt=0,
     title='Person Id',
-    description='Id of the user to retrieve, should be above 1'
+    description='Id of the user to retrieve, should be above 1',
+    example=1423
 )):
     return {person_id: "It exists"}
 
@@ -81,7 +83,7 @@ def show_person(person_id: int = Path(
 # Pass to body request objects
 @app.put('/person/{person_id}')
 def update_person(
-    person_id: int = Path(..., gt=0),
+    person_id: int = Path(..., gt=0, example=1423),
     person: Person = Body(...),
     # location: Location = Body(...)
 ):
